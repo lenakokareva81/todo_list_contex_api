@@ -1,5 +1,6 @@
 import styles from "./todo.module.css";
 import { Input } from "../input/input";
+
 export const Todo = ({
 	changeIdTodo,
 	id,
@@ -9,7 +10,6 @@ export const Todo = ({
 	setChangeIdTodo,
 	title,
 	changeTodo,
-
 	deleteTodo,
 	completeTodo,
 }) => {

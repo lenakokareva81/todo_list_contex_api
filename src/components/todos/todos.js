@@ -1,10 +1,8 @@
 import styles from "./todos.module.css";
-
-import { SortAlphabet } from "../../function/sortAlphabet";
+import { sortAlphabet } from "../utils";
 import { Todo } from "../todo/todo";
 
-export const Todoes = ({
-	todoes,
+export const Todos = ({
 	isLoading,
 	deleteTodo,
 	completeTodo,
@@ -15,46 +13,14 @@ export const Todoes = ({
 	setChangeIdTodo,
 	searchTodo,
 	isAlphabet,
-	setIsLoading,
 }) => {
-	// const onChangeTodo = (id, title, completed) => {
-	// 	setChangeIdTodo(id);
-	// 	setChangeTodo(title);
-	// };
-	// const onBlur = (id, changeTodo, completed) => {
-	// 	completeTodo({ id, title: changeTodo, completed });
-	// 	setChangeIdTodo(0);
-	// };
-	const sortAlphabet = (todoes, isAlphabet) => {
-		if (isAlphabet) {
-			return todoes.sort(function (a, b) {
-				if (a.title < b.title) {
-					return -1;
-				}
-				if (a.title > b.title) {
-					return 1;
-				}
-				return 0;
-			});
-		} else {
-			return todoes.sort(function (a, b) {
-				if (a.id < b.id) {
-					return -1;
-				}
-				if (a.id > b.id) {
-					return 1;
-				}
-				return 0;
-			});
-		}
-	};
 	return (
 		<>
 			<ul className={styles.taskList}>
 				{isLoading ? (
 					<div className={styles.loader}></div>
 				) : (
-					sortAlphabet(todoes, isAlphabet)
+					sortAlphabet(isAlphabet)
 						.filter(({ id, title, completed }) => {
 							if (
 								searchTodo.length > 3 &&

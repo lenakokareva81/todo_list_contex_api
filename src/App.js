@@ -6,14 +6,15 @@ import {
 	useRequestDeleteTodo,
 	useRequestPutTodo,
 } from "./hooks";
+import { AppContext } from "./context";
 import { InputTodo } from "./components/inputTodo/input-todo";
 import { SearchTodo } from "./components/searchTodo/searchTodo";
-import { Todoes } from "./components/todoes/todos";
+import { Todos } from "./components/todos/todos";
 import { ButtonAlphabet } from "./components/button-alphabet/button-alphabet";
 
 export const App = () => {
 	const [refreshTodosFlag, setRefreshTodosFlag] = useState(false);
-	const [newCreateTodo, setNewCreateTodo] = useState(null);
+
 	const [isCreating, setIsCreating] = useState(false);
 
 	const [newTodo, setNewTodo] = useState("");
@@ -36,13 +37,13 @@ export const App = () => {
 		setNewTodo,
 	);
 
-	const { todoes } = useRequestGetTodoes(refreshTodosFlag, setIsLoading);
+	const { todos } = useRequestGetTodoes(refreshTodosFlag, setIsLoading);
 	const { completeTodo } = useRequestPutTodo(refreshTodos, setIsLoading);
 	const { deleteTodo } = useRequestDeleteTodo(refreshTodos, setIsDeleting);
 
 	return (
 		<>
-			<>
+			<AppContext value={todos}>
 				<div className={styles.appContainer} id="taskList">
 					<h1 className={styles.appHeader}>TO DO LIST</h1>
 					<ButtonAlphabet
@@ -84,8 +85,7 @@ export const App = () => {
 							</div>
 						</div>
 					) : (
-						<Todoes
-							todoes={todoes}
+						<Todos
 							isLoading={isLoading}
 							deleteTodo={deleteTodo}
 							completeTodo={completeTodo}
@@ -99,10 +99,10 @@ export const App = () => {
 							searchTodo={searchTodo}
 							isAlphabet={isAlphabet}
 							setIsLoading={setIsLoading}
-						></Todoes>
+						></Todos>
 					)}
 				</div>
-			</>
+			</AppContext>
 		</>
 	);
 };
