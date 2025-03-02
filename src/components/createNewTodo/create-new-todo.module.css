@@ -5,6 +5,10 @@ input {
 	height: 40px;
 	font-size: 14px;
 	display: flex;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	list-style: none;
 }
 .submitTask {
 	width: 32px;

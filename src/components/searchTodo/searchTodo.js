@@ -1,43 +1,22 @@
 import styles from "./searchTodo.module.css";
-import { Input } from "../input/input";
+import { InputForm } from "../inputForm/input-form";
+import { use } from "react";
+import { AppContext } from "../../context";
 
-export const SearchTodo = ({
-	placeholder,
-	isCreating,
-	setIsCreating,
-	searchTodo,
-	setSearchTodo,
-}) => {
-	const requestNewTodo = () => {
-		// if (searchTodo > 3) {
-		// 	requestAddTodo(newTodo);
-		// 	setNewToto("");
-		// 	setIsCreating(false);
-		// }
-	};
+export const SearchTodo = () => {
+	const { searchPhrase, setSearchPhrase } = use(AppContext);
 
 	return (
 		<>
-			<form onSubmit={requestNewTodo}>
-				<div className={styles.addTask}>
-					<Input
-						placeholder={placeholder}
-						todo={searchTodo}
-						setTodo={setSearchTodo}
-						setIsCreating={setIsCreating}
-					></Input>
-
-					<input
-						type="submit"
-						value=""
-						className={
-							isCreating
-								? styles.searchTask
-								: `${styles.searchTask} ${styles.submitTaskDisable}`
-						}
-					></input>
-				</div>
-			</form>
+			<div className={styles.addTask}>
+				<InputForm
+					placeholder="Search Todo"
+					title={searchPhrase}
+					setNewTitle={setSearchPhrase}
+					onClick={() => setSearchPhrase(searchPhrase)}
+					className={`${styles.searchTask}`}
+				/>
+			</div>
 		</>
 	);
 };
